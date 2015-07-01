@@ -1,0 +1,57 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}prova{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='css/mystyle.css')}}">
+{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href= {{ url_for('listaDevicesWeb') }} >G-tag finder</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href= {{ url_for('listaDevicesWeb') }}>Devices</a></li>
+            <li><a href= {{ url_for('listaCronologiaWeb') }} >Story</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div class="starter-template">
+
+		<table class="table table-bordered">
+    		<thead>
+        		<tr>
+            		<th data-field="mac">MAC Address</th>
+            		<th data-field="name">Device Name</th>
+            		<th data-field="controller">Controller</th>
+       			 </tr>
+		{% for item in lista %}
+        		<tr>
+        			<td>{{ item["mac"] }}</td>
+            	<td>{{ item["name"] }} </td>
+            	<td><a href= {{ url_for('listaControllerWeb', idController=item["controller"]) }}> {{ item["controller"] }} </a>  </td>
+       			</tr>
+       	{% endfor %}
+
+    		</thead>
+		</table>
+
+		</div>
+
+	</div>
+{% endblock %}
